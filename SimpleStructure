@@ -1,0 +1,59 @@
+#include <iostream>
+#include <set>
+
+using namespace std;
+
+template<typename T>
+class Medi{
+private:
+	multiset <T> elements;
+public:
+	Medi(){}
+	Medi(T const &x){
+		elements.insert(x);
+	}
+	int size(){
+		return elements.size();
+	}
+	bool empty(){
+		return elements.empty();
+	}
+	void print(){
+		for(auto &i : elements){
+			cout << i << " ";
+		}
+	}
+
+	void insert(T const & n){
+		elements.insert(n);
+	}
+
+	double median()
+	{
+		typename set<T>::iterator it = elements.begin();
+		for( int i = 0; i < elements.size()/2-1; ++i){ ++it; }
+		if (elements.size() % 2 == 1){
+			return *it;
+		}
+		else{
+			double _mediane = *it;
+			++it;
+			_mediane += *it;
+			_mediane /= 2;
+			return _mediane;
+		}
+	}
+};
+int main(){
+	Medi<int>med;
+	int tests,temp;
+	cin>>tests;
+	while(tests--){
+		cin >> temp;
+		med.insert(temp);
+	}
+	cout<<endl<< "The median of: ";
+	med.print();
+    cout<<" is: " << med.median() << endl;
+	return 0;
+}
